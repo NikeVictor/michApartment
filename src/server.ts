@@ -1,10 +1,17 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import { connectDB, sequelize } from "./database";
+import 'reflect-metadata';
+import './tsyringe.container'; // Ensure this is imported to load the container configuration
+import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
+import { connectDB, sequelize } from './database';
+import router from './routes/user.routes';
 
 dotenv.config();
 
 const app: Express = express();
+app.use(express.json());
+
+app.use('/api/v1', router);
+
 const port = process.env.API_PORT || 8000;
 
 app.get("/", async (req: Request, res: Response) => {

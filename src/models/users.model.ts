@@ -14,7 +14,10 @@ interface UserAttributes {
     password?: string;
     accountType?: UserType;
     image?: string;
-    lastActive?: Date
+    lastActive?: Date;
+    state?: string;
+    country?: string;
+    address?: string;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
@@ -28,7 +31,10 @@ class User extends Model<UserAttributes> implements UserAttributes {
     password?: string;
     accountType?: UserType;
     image?: string;
-    lastActive?: Date
+    lastActive?: Date;
+    state?: string;
+    country?: string;
+    address?: string;
 }
 
 function connectModelAttrs(sequelize: Sequelize) {
@@ -86,6 +92,9 @@ function connectModelAttrs(sequelize: Sequelize) {
                 defaultValue: "Subscriber",
             },
             phone: phone(),
+            address: DataTypes.STRING,
+            state: DataTypes.STRING,
+            country: DataTypes.STRING
         },
         {
             sequelize,

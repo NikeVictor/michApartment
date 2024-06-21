@@ -12,6 +12,8 @@
     "moduleResolution": "node", // Choose a module resolution strategy
     "resolveJsonModule": true,
     "removeComments": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
     "paths": {
       "@src/*": ["src/*"] // absolute paths
