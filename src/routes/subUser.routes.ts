@@ -3,10 +3,12 @@ import { Router } from 'express';
 import UserController from '@src/controllers/users.controller';
 import { UserValidator } from '@src/schemas/user.schema';
 import { AppContainer } from '@src/tsyringe.container';
+import { subUserAuthorized } from '@src/middleWare/auth';
 
 const router = Router();
 const userController = AppContainer.resolve(UserController);
 
 router.post('/signup', UserValidator, (req, res) => userController.addUser(req, res));
-
-export default router;
+router.post('/login', (req, res) => userController.logIn(req, res));
+router.get("/:id", subUserAuthorized, (req, res) => userController.findUserById(req, res))
+export {router as subUserRoutes};

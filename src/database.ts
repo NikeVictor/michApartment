@@ -1,9 +1,11 @@
 require("dotenv").config();
 import { Sequelize, DataTypes } from "sequelize";
+import { init } from "./models/users.model";
 
 const POSTGRES_URL = process.env.DATABASE_URL as string;
 const sequelize = new Sequelize(POSTGRES_URL);
 
+init.connectModelAttrs(sequelize);
 async function connectDB() {
   try {
     await sequelize.authenticate();

@@ -1,8 +1,10 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
-import { UserRepo } from './repositories/users.repo';
+import { IUserRepo, UserRepo } from './repositories/users.repo';
+import { User } from './models/users.model';
 
-container.register("IUserRepo", { useValue: UserRepo });
+container.register("UserModel", { useValue: User });
 
+container.register<IUserRepo>("IUserRepo", { useClass: UserRepo });
 
 export { container as AppContainer };

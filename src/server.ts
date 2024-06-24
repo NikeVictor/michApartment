@@ -3,14 +3,16 @@ import './tsyringe.container'; // Ensure this is imported to load the container 
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { connectDB, sequelize } from './database';
-import router from './routes/user.routes';
+import { adminRoutes } from './routes/admin.routes';
+import { subUserRoutes } from './routes/subUser.routes';
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
 
-app.use('/api/v1', router);
+app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/subUser', subUserRoutes);
 
 const port = process.env.API_PORT || 8000;
 

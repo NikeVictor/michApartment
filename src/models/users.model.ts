@@ -1,6 +1,6 @@
 import Phone from "@src/types/phone";
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { phone } from "./mixins";
+import { phone} from "./mixins";
 
 type UserType = "Administrator" | "Subscriber"
 interface UserAttributes {
@@ -11,13 +11,15 @@ interface UserAttributes {
     email?: string;
     phone?: Phone;
     gender?: string;
-    password?: string;
+    password: string;
+    confirmPassword: string;
     accountType?: UserType;
     image?: string;
     lastActive?: Date;
     state?: string;
     country?: string;
     address?: string;
+    token?: string;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
@@ -28,13 +30,15 @@ class User extends Model<UserAttributes> implements UserAttributes {
     email?: string;
     phone?: Phone;
     gender?: string;
-    password?: string;
+    password!: string;
+    confirmPassword!: string;
     accountType?: UserType;
     image?: string;
     lastActive?: Date;
     state?: string;
     country?: string;
     address?: string;
+    token?: string;
 }
 
 function connectModelAttrs(sequelize: Sequelize) {
@@ -43,6 +47,7 @@ function connectModelAttrs(sequelize: Sequelize) {
             id: {
                 type: DataTypes.UUID,
                 primaryKey: true,
+                defaultValue: DataTypes.UUIDV4,
             },
             firstName: {
                 type: new DataTypes.STRING,
@@ -84,8 +89,12 @@ function connectModelAttrs(sequelize: Sequelize) {
             },
             password: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
             },
+            confirmPassword: {
+                type: DataTypes.STRING,
+                allowNull: false
+              },
             accountType: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -94,7 +103,8 @@ function connectModelAttrs(sequelize: Sequelize) {
             phone: phone(),
             address: DataTypes.STRING,
             state: DataTypes.STRING,
-            country: DataTypes.STRING
+            country: DataTypes.STRING,
+            token: DataTypes.STRING
         },
         {
             sequelize,
@@ -103,7 +113,11 @@ function connectModelAttrs(sequelize: Sequelize) {
         }
     )
 }
-function connectModelAssocs() {}
+function connectModelAssocs() {
+    User.addScope("defaultScope", {
+        order: [["createdAt", "DESC"]]
+    })
+}
 const init = {
     connectModelAttrs,
     connectModelAssocs,
