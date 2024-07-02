@@ -12,5 +12,5 @@ const userController = AppContainer.resolve(UserController);
 router.post('/signup', UserValidator, (req, res) => userController.addUser(req as AuthRequest, res));
 router.post('/login', (req, res) => userController.logIn(req as AuthRequest, res));
 router.get("/admin/:id", adminAuthorized, (req, res) => userController.findUserById(req as AuthRequest, res))
-router.get("/users", adminAuthorized, (req, res) => userController.fetchAllUser(req as AuthRequest, res))
+router.get("/users/admin", adminAuthorized, (req, res) => userController.fetchAllUser(req as AuthRequest, res))
 export {router as adminRoutes};
