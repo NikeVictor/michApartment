@@ -61,7 +61,6 @@ module.exports = {
             defaultValue: "Subscriber",
         },
         phone: DataTypes.JSONB,
-        address: DataTypes.STRING,
         state: DataTypes.STRING,
         country: DataTypes.STRING,
         token: DataTypes.STRING,

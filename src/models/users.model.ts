@@ -1,44 +1,45 @@
 import Phone from "@src/types/phone";
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { phone} from "./mixins";
+import { phone } from "./mixins";
 
-type UserType = "Administrator" | "Subscriber"
+type AccountType = "Administrator" | "Subscriber"
+type UserType = "Developer" | "Landlord" | "Agent"
 interface UserAttributes {
-    id?: string;
-    firstName?: string;
+    id: string;
+    firstName: string;
     middleName?: string;
-    lastName?: string;
-    email?: string;
-    phone?: Phone;
-    gender?: string;
+    lastName: string;
+    email: string;
+    phone: Phone;
+    gender: string;
     password: string;
     confirmPassword: string;
-    accountType?: UserType;
-    image?: string;
-    lastActive?: Date;
-    state?: string;
-    country?: string;
-    address?: string;
-    token?: string;
+    accountType: AccountType;
+    image: string;
+    lastActive: Date;
+    state: string;
+    country: string;
+    token: string;
+    userType: UserType;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
-    id?: string;
-    firstName?: string;
+    id: string;
+    firstName: string;
     middleName?: string;
-    lastName?: string;
-    email?: string;
-    phone?: Phone;
-    gender?: string;
-    password!: string;
-    confirmPassword!: string;
-    accountType?: UserType;
-    image?: string;
-    lastActive?: Date;
-    state?: string;
-    country?: string;
-    address?: string;
-    token?: string;
+    lastName: string;
+    email: string;
+    phone: Phone;
+    gender: string;
+    password: string;
+    confirmPassword: string;
+    accountType: AccountType;
+    image: string;
+    lastActive: Date;
+    state: string;
+    country: string;
+    token: string;
+    userType: UserType;
 }
 
 function connectModelAttrs(sequelize: Sequelize) {
@@ -101,10 +102,13 @@ function connectModelAttrs(sequelize: Sequelize) {
                 defaultValue: "Subscriber",
             },
             phone: phone(),
-            address: DataTypes.STRING,
             state: DataTypes.STRING,
             country: DataTypes.STRING,
-            token: DataTypes.STRING
+            token: DataTypes.STRING,
+            userType: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
         },
         {
             sequelize,

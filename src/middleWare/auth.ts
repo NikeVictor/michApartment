@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 interface AuthRequest extends Request {
     userId?: string;
-    userType?: string;
+    accountType?: string;
 }
 
 const adminAuthorized = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -20,7 +20,7 @@ const adminAuthorized = async (req: AuthRequest, res: Response, next: NextFuncti
             process.env.JWT_SECRET as string) as { 
                 userId: string, 
                 exp: number, 
-                userType: string 
+                accountType: string 
             };
 
         if (decoded.exp < Date.now().valueOf() / 1000) {
@@ -30,7 +30,7 @@ const adminAuthorized = async (req: AuthRequest, res: Response, next: NextFuncti
             return;
         }
 
-        if (decoded.userType !== 'Administrator') {
+        if (decoded.accountType !== 'Administrator') {
             res.status(403).json({
                 error: 'Access denied: Admins only'
             });
@@ -38,7 +38,7 @@ const adminAuthorized = async (req: AuthRequest, res: Response, next: NextFuncti
         }
 
         req.userId = decoded.userId;
-        req.userType = decoded.userType;
+        req.accountType = decoded.accountType;
         return next(); 
     } catch (error) {
         return next(error); 
@@ -46,7 +46,6 @@ const adminAuthorized = async (req: AuthRequest, res: Response, next: NextFuncti
 };
 
 export default adminAuthorized;
-
 
 
 const subUserAuthorized = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -63,7 +62,7 @@ const subUserAuthorized = async (req: AuthRequest, res: Response, next: NextFunc
             process.env.JWT_SECRET as string) as { 
                 userId: string, 
                 exp: number, 
-                userType: string 
+                accountType: string 
             };
 
         if (decoded.exp < Date.now().valueOf() / 1000) {
@@ -72,7 +71,7 @@ const subUserAuthorized = async (req: AuthRequest, res: Response, next: NextFunc
             });
             return;
         }
-        if (decoded.userType !== 'Subscriber') {
+        if (decoded.accountType !== 'Subscriber') {
             res.status(403).json({
                 error: 'Access denied: Subscribers only'
             });
@@ -80,7 +79,7 @@ const subUserAuthorized = async (req: AuthRequest, res: Response, next: NextFunc
         }
 
         req.userId = decoded.userId;
-        req.userType = decoded.userType;
+        req.accountType = decoded.accountType;
         return next(); 
     } catch (error) {
         return next(error); 
