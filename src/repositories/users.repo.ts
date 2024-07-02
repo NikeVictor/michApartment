@@ -3,6 +3,8 @@ import  AlreadyExists, { NotFoundError } from "@src/utils/error";
 import { inject, injectable } from "tsyringe";
 import jwt from 'jsonwebtoken';
 import { decryptPassword, encryptPassword } from "@src/models/mixins";
+import { PageData, Paginated } from "@src/types/pagination";
+import { paginate } from "@src/utils/model";
 
 
 export interface LogInData {
@@ -14,6 +16,7 @@ export interface IUserRepo {
     add(data: UserAttributes): Promise<User>;
     findById(id: string): Promise<User>;
     logIn(data: LogInData): Promise<User>;
+    fetchAllUsers(pageData: PageData): Promise<Paginated<User>>;
 }
 
 @injectable()
@@ -33,7 +36,7 @@ export class UserRepo implements IUserRepo {
     const user = await this.model.create(data);
     const accessToken = jwt.sign({
       userId: user.id, 
-      userType: user.accountType}, 
+      accountType: user.accountType}, 
       process.env.JWT_SECRET as string, 
       {
       expiresIn: "1h"
@@ -62,7 +65,7 @@ export class UserRepo implements IUserRepo {
       }
       const accessToken = jwt.sign({
         userId: user!.id,
-        userType: user!.accountType,
+        accountType: user!.accountType,
       }, process.env.JWT_SECRET as string, {
         expiresIn: '1h',
       });
@@ -83,5 +86,16 @@ export class UserRepo implements IUserRepo {
       throw new NotFoundError(`User with id ${id} not found`);
   }
     return user
+  }
+
+  async fetchAllUsers(pageData: PageData): Promise<Paginated<User>>{
+    const users = await paginate<User>(
+      this.model,
+      {
+          where: {},
+      },
+      pageData
+  );
+    return users
   }
 }

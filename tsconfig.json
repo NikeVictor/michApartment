@@ -14,14 +14,13 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     "paths": {
       "@src/*": ["src/*"] // absolute paths
     },
 
     "strictNullChecks": true, // Enable strict null checks
     "strictFunctionTypes": true, // Enable strict checking of function types
-    "strictPropertyInitialization": true, // Ensure non-undefined class properties are initialized in the constructor
+    "strictPropertyInitialization": false, // Ensure non-undefined class properties are initialized in the constructor
     "strictBindCallApply": true, // Enable stricter checking of the bind, call, and apply methods on functions
     "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
 
@@ -29,15 +28,15 @@
     "noImplicitThis": true, // Raise error on 'this' expressions with an implied 'any' type
     "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
 
-    "noUnusedLocals": true, // Report errors on unused locals
-    "noUnusedParameters": true, // Report errors on unused parameters
+    "noUnusedLocals": false, // Report errors on unused locals
+    "noUnusedParameters": false, // Report errors on unused parameters
     "noImplicitReturns": true, // Report error when not all code paths in function return a value
-    "noFallthroughCasesInSwitch": true // Report errors for fallthrough cases in switch statement
+    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
   },
   "include": [
     "src/**/*", // Include all files in the src directory
     "server.ts"
-, "src/migrations/20240619201936-UsersTable.js"  ],
+, "src/migrations/20240619201936-UsersTable.js", "declarations.d.ts"  ],
   "exclude": [
     "node_modules", // Exclude the node_modules directory
     "**/*.spec.ts",

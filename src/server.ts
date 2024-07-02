@@ -5,17 +5,25 @@ import dotenv from 'dotenv';
 import { connectDB, sequelize } from './database';
 import { adminRoutes } from './routes/admin.routes';
 import { subUserRoutes } from './routes/subUser.routes';
+import swaggerUI from "swagger-ui-express";
+import { swaggerDocument } from "./swagger-document";
+//import * as fs from 'fs';
+// import * as path from 'path';
+// import mergeYaml from 'merge-yaml';
+// import YAML from 'js-yaml';
+// import { JsonObject } from 'swagger-ui-express';
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
 
-app.use('/api/v1/admin', adminRoutes);
-app.use('/api/v1/subUser', subUserRoutes);
+app.use('/api/v1/', adminRoutes);
+app.use('/api/v1/', subUserRoutes);
 
 const port = process.env.API_PORT || 8000;
 
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.get("/", async (req: Request, res: Response) => {
   let dbConnected = false;
   try {

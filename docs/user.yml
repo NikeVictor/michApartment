@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: Your API Title
+  version: 1.0.0
+paths:
+  /signup:
+    post:
+      tags:
+        - "Users"
+      summary: "Create a user"
+      description: "Returns the user if created"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Data needed to create a user"
+          required: true
+          schema:
+            $ref: "#/definitions/SignupUsers"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        "400":
+          description: "Error"
+      security:
+        - Authorization: []
+  /login:
+    post:
+      tags:
+        - "Users"
+      summary: "Login a user"
+      description: "Returns the user if logged in"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Data needed to login a user"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginUsers"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        "400":
+          description: "Error"
+      security:
+        - Authorization: []
+  /subUser/{id}:
+    get:
+      tags:
+        - "Users"
+      summary: "fetch subscribed users by id"
+      description: "Returns the user if fetched"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "params"
+          name: "userId"
+          description: "User id"
+          required: true
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        "400":
+          description: "Error"
+      security:
+        - Authorization: []
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: "Fetch all user"
+      description: "Returns the users if fetched"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        "400":
+          description: "Error"
+      security:
+        - Authorization: []
+definitions:
+  SignupUsers:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      firstName:
+        type: "string"
+      middleName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "object"
+        properties:
+          dialCode:
+            type: string
+          number:
+            type: "integer"
+      gender:
+        type: "string"
+      password:
+        type: "string"
+      confirmPassword:
+        type: "string"
+      accountType:
+        type: "string"
+        enum: ["Subscriber", "Administrator"]
+      image:
+        type: "string"
+      state:
+        type: "string"
+      country:
+        type: "string"
+      userType:
+        type: "string"
+        enum: ["Agent", "Developer", "Landlord"]
+  UsersResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      firstName:
+        type: "string"
+      middleName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "object"
+        properties:
+          dialCode:
+            type: string
+          number:
+            type: "integer"
+      gender:
+        type: "string"
+      password:
+        type: "string"
+      accountType:
+        type: "string"
+        enum: ["Subscriber", "Administrator"]
+      image:
+        type: "string"
+      state:
+        type: "string"
+      country:
+        type: "string"
+      userType:
+        type: "string"
+        enum: ["Agent", "Developer", "Landlord"]
+  LoginUsers:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"

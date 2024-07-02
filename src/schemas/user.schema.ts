@@ -20,7 +20,8 @@ const UserSchema = Joi.object({
     state: Joi.string(),
     country: Joi.string(),
     address: Joi.string(),
-    confirmPassword: Joi.string().required()
+    confirmPassword: Joi.string().required(),
+    userType: Joi.string().valid("Agent", "Developer", "Landlord").required()
 }).options({ stripUnknown: true });
 
 export const UserValidator = AppValidator.body(UserSchema)
