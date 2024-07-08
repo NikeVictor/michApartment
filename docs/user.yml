@@ -73,7 +73,7 @@ paths:
           description: "Error"
       security:
         - Authorization: []
-  /users:
+  /users/admin:
     get:
       tags:
         - "Users"

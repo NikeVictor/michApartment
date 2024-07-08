@@ -3,7 +3,7 @@ import { Sequelize, DataTypes } from "sequelize";
 import { init } from "./models/users.model";
 
 const POSTGRES_URL = process.env.DATABASE_URL as string;
-const sequelize = new Sequelize(POSTGRES_URL);
+const sequelize = new Sequelize(POSTGRES_URL, {dialect: 'postgres'});
 
 init.connectModelAttrs(sequelize);
 async function connectDB() {
