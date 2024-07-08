@@ -44,9 +44,4 @@ app.get("/", async (req: Request, res: Response) => {
 app.listen(port, async () => {
   console.log(`🚀Server started successfully on port ${port}`);
   await connectDB();
-  sequelize.sync({ force: false }).then(() => {
-    console.log("✅ Synced database successfully...");
-  }).catch((error) => {
-    console.error("❌ Error syncing database:", error);
-  });
 });
