@@ -2,13 +2,13 @@ require("dotenv").config();
 import { Sequelize, DataTypes } from "sequelize";
 import { init } from "./models/users.model";
 
-const DB_HOST=process.env.POSTGRES_HOST
-const DB_PORT=process.env.POSTGRES_PORT
-const DB_USER= process.env.POSTGRES_USER
-const DB_PASSWORD= process.env.POSTGRES_PASSWORD
-const DB_NAME=process.env.POSTGRES_DB
+const POSTGRES_HOST=process.env.POSTGRES_HOST
+const POSTGRES_PORT=process.env.POSTGRES_PORT
+const POSTGRES_USER= process.env.POSTGRES_USER
+const POSTGRES_PASSWORD= process.env.POSTGRES_PASSWORD
+const POSTGRES_DB=process.env.POSTGRES_DB
 
-const POSTGRES_URL = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public`;
+const POSTGRES_URL = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public`;
 if (!POSTGRES_URL) {
   throw new Error('DATABASE_URL environment variable is not set');
 }
