@@ -1,11 +1,14 @@
 {
-  "name": "vytech",
+  "name": "michapartments",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test1": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node -r tsconfig-paths/register src/server.ts",
+    "start": "tsc && npx sequelize db:migrate --migrations-path ./src/migrations && ts-node -r tsconfig-paths/register src/server.ts",
     "dev": "nodemon",
     "test": "jest",
     "test:watch": "jest --watch",

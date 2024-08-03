@@ -21,8 +21,10 @@ paths:
       responses:
         "200":
           description: "successful"
-          schema:
-            $ref: "#/definitions/UsersResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/SignupUsers"
         "400":
           description: "Error"
       security:
@@ -45,8 +47,10 @@ paths:
       responses:
         "200":
           description: "successful"
-          schema:
-            $ref: "#/definitions/UsersResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/SignupUsers"
         "400":
           description: "Error"
       security:
@@ -55,7 +59,7 @@ paths:
     get:
       tags:
         - "Users"
-      summary: "fetch subscribed users by id"
+      summary: "fetch subscribed users by id for a subscriber"
       description: "Returns the user if fetched"
       produces:
         - "application/json"
@@ -67,8 +71,34 @@ paths:
       responses:
         "200":
           description: "successful"
-          schema:
-            $ref: "#/definitions/UsersResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/SignupUsers"
+        "400":
+          description: "Error"
+      security:
+        - Authorization: []
+  /admin/{id}:
+    get:
+      tags:
+        - "Users"
+      summary: "fetch subscribed users by id for an admin"
+      description: "Returns the user if fetched"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "params"
+          name: "userId"
+          description: "User id"
+          required: true
+      responses:
+        "200":
+          description: "successful"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/SignupUsers"
         "400":
           description: "Error"
       security:
@@ -84,8 +114,10 @@ paths:
       responses:
         "200":
           description: "successful"
-          schema:
-            $ref: "#/definitions/UsersResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/SignupUsers"
         "400":
           description: "Error"
       security:
@@ -117,43 +149,6 @@ definitions:
       password:
         type: "string"
       confirmPassword:
-        type: "string"
-      accountType:
-        type: "string"
-        enum: ["Subscriber", "Administrator"]
-      image:
-        type: "string"
-      state:
-        type: "string"
-      country:
-        type: "string"
-      userType:
-        type: "string"
-        enum: ["Agent", "Developer", "Landlord"]
-  UsersResponse:
-    type: "object"
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      firstName:
-        type: "string"
-      middleName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
-      phone:
-        type: "object"
-        properties:
-          dialCode:
-            type: string
-          number:
-            type: "integer"
-      gender:
-        type: "string"
-      password:
         type: "string"
       accountType:
         type: "string"
