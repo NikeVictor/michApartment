@@ -55,7 +55,6 @@ export class UserRepo implements IUserRepo {
             email: data.email
         },
       });
-  
       if (!user) {
         throw new Error('User not found');
       }

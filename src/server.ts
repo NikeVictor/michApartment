@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import './tsyringe.container'; // Ensure this is imported to load the container configuration
+import './tsyringe.container';
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { connectDB, sequelize } from './database';
@@ -7,11 +7,6 @@ import { adminRoutes } from './routes/admin.routes';
 import { subUserRoutes } from './routes/subUser.routes';
 import swaggerUI from "swagger-ui-express";
 import { swaggerDocument } from "./swagger-document";
-//import * as fs from 'fs';
-// import * as path from 'path';
-// import mergeYaml from 'merge-yaml';
-// import YAML from 'js-yaml';
-// import { JsonObject } from 'swagger-ui-express';
 
 dotenv.config();
 

@@ -1,0 +1,14 @@
+# Exported from Render on 2024-07-11T12:08:50Z
+services:
+- type: web
+  name: michApartments-backend-1
+  runtime: node
+  repo: https://github.com/MichApartments/michApartments-backend
+  plan: free
+  envVars:
+  - key: DATABASE_URL
+    sync: false
+  region: oregon
+  buildCommand: npm install
+  startCommand: npm run start
+version: "1"
