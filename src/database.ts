@@ -2,7 +2,7 @@ require("dotenv").config();
 import { Sequelize, DataTypes } from "sequelize";
 import { init } from "./models/users.model";
 
-const POSTGRES_URL = process.env.DATABASE_URL as string;
+const POSTGRES_URL = process.env.POSTGRES_URL as string;
 const sequelize = new Sequelize(POSTGRES_URL,{
   dialectOptions: {
     dialect: 'postgres'
