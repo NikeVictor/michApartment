@@ -1,5 +1,5 @@
 import { User, UserAttributes } from "@src/models/users.model";
-import  AlreadyExists, { NotFoundError } from "@src/utils/error";
+import  AlreadyExists, { NotFoundError } from "../utils/error";
 import { inject, injectable } from "tsyringe";
 import jwt from 'jsonwebtoken';
 import { decryptPassword, encryptPassword } from "@src/models/mixins";
