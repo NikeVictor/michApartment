@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 import jwt from 'jsonwebtoken';
 import { decryptPassword, encryptPassword } from "../models/mixins";
 import { PageData, Paginated } from "@src/types/pagination";
-import { paginate } from "@src/utils/model";
+import { paginate } from "../utils/model";
 
 
 export interface LogInData {
