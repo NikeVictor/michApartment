@@ -2,7 +2,7 @@ import { User, UserAttributes } from "@src/models/users.model";
 import  AlreadyExists, { NotFoundError } from "../utils/error";
 import { inject, injectable } from "tsyringe";
 import jwt from 'jsonwebtoken';
-import { decryptPassword, encryptPassword } from "@src/models/mixins";
+import { decryptPassword, encryptPassword } from "../models/mixins";
 import { PageData, Paginated } from "@src/types/pagination";
 import { paginate } from "@src/utils/model";
 
